@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuiz ASK Tingkatan 2: Asas 10 ke Asas 16</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Fredoka', cursive, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #FF9A9E, #FECFEF, #A1C4FD, #C2E9FB);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .header-wrapper {
+            width: 100%;
+            background: #FFFDE7;
+            border: 3px solid #FFE082;
+            border-radius: 20px;
+            padding: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-img {
+            max-height: 90px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .banner-box {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            object-fit: contain;
+            border-radius: 12px;
+            display: block;
+        }
+
+        h1 {
+            color: #E91E63;
+            text-shadow: 2px 2px #FFD54F;
+            margin: 10px 0 5px 0;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 3px solid #81D4FA;
+            border-radius: 14px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #29B6F6;
+        }
+
+        button.btn-start, button.btn-next {
+            background-color: #FF4081;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #C2185B;
+            transition: all 0.2s;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        button.btn-start:hover, button.btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #C2185B;
+        }
+
+        button.btn-start:active, button.btn-next:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #C2185B;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            padding: 16px 10px;
+            border: none;
+            border-radius: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.2);
+            transition: transform 0.1s, filter 0.2s;
+            word-break: break-word;
+        }
+
+        .option-btn:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        .opt-0 { background-color: #FF5252; }
+        .opt-1 { background-color: #7C4DFF; }
+        .opt-2 { background-color: #00E676; }
+        .opt-3 { background-color: #FF9100; }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 15px;
+            background: #E1F5FE;
+            padding: 10px 16px;
+            border-radius: 12px;
+        }
+
+        .question-box {
+            background: #FFF9C4;
+            border: 3px dashed #FBC02D;
+            padding: 22px;
+            border-radius: 18px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .working-box {
+            background: #FFEBEE;
+            border: 2px solid #EF5350;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: left;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .working-title {
+            color: #C62828;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .working-content {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            color: #333;
+            background: #FFF;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #FFCDD2;
+            white-space: pre-line;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #FF4081;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 16px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: BORANG NAMA & KELAS (BANNER & LOGO) -->
+    <div id="page1" class="container">
+        <div class="header-wrapper">
+            
+            <div class="banner-box">
+                <img src="ASKWI.png" alt="Banner ASK Cikgu Wi" class="banner-img">
+            </div>
+        </div>
+        
+        <h1>KUIZ ASK TINGKATAN 2</h1>
+        <div class="subtitle">Penukaran Asas 10 (Perpuluhan) kepada Asas 16 (Perenambelasan)</div>
+
+        <div class="input-group">
+            <label for="studentName">Nama Murid:</label>
+            <input type="text" id="studentName" placeholder="Masukkan nama penuh anda...">
+        </div>
+
+        <div class="input-group">
+            <label for="studentClass">Kelas:</label>
+            <input type="text" id="studentClass" placeholder="Contoh: 2 Mawar">
+        </div>
+
+        <button class="btn-start" onclick="startQuiz()">MULA KUIZ 🚀</button>
+    </div>
+
+    <!-- PAGE 2: SOALAN (TANPA BANNER) -->
+    <div id="page2" class="container hidden">
+        <div class="q-header">
+            <span id="q-count">Soalan 1/15</span>
+            <span id="score-count">Markah: 0</span>
+        </div>
+
+        <div id="question" class="question-box">Beban Soalan...</div>
+
+        <div id="options-container" class="options-grid">
+            <button class="option-btn opt-0" onclick="checkAnswer(0)" id="btn0">A</button>
+            <button class="option-btn opt-1" onclick="checkAnswer(1)" id="btn1">B</button>
+            <button class="option-btn opt-2" onclick="checkAnswer(2)" id="btn2">C</button>
+            <button class="option-btn opt-3" onclick="checkAnswer(3)" id="btn3">D</button>
+        </div>
+
+        <div id="working-area" class="working-box hidden">
+            <div class="working-title">❌ Jawapan Kurang Tepat! Mari pelajari jalan kerjanya:</div>
+            <div id="working-text" class="working-content"></div>
+            <button class="btn-next" onclick="nextQuestion()">Seterusnya ➔</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3: KEPUTUSAN -->
+    <div id="page3" class="container hidden">
+        <h1 style="font-size: 32px; color: #4CAF50;">🎉 TAHNIAH! 🎉</h1>
+        <p id="result-message" style="font-size: 18px; color: #333; margin-top: 15px;"></p>
+        <h2 id="final-score" style="font-size: 38px; color: #E91E63; margin: 15px 0;"></h2>
+        
+        <div id="loading" class="hidden">
+            <div class="loader"></div>
+            <p style="color: #666;">Menghantar markah ke Google Sheet Guru...</p>
+        </div>
+        <p id="status-send" style="font-weight: bold; font-size: 16px; margin-top: 15px;"></p>
+    </div>
+
+    <script>
+        // URL WEB APP APPSCRIPT TERLATEST
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbycjbGAcXtVcSC3J8OosHwZmQUWb2M6bw6BPA5ibifi3MwFQLVEo1Ujo05S7044kiE2cA/exec";
+
+        const rawQuizData = [
+            { 
+                q: "Tukarkan 10₁₀ kepada Asas 16", 
+                correctOpt: "A₁₆",
+                wrongOpts: ["B₁₆", "10₁₆", "F₁₆"], 
+                work: "10 ÷ 16 = 0 baki 10\n10 dalam Asas 16 diwakili oleh digit 'A'\nJawapan = A₁₆" 
+            },
+            { 
+                q: "Tukarkan 15₁₀ kepada Asas 16", 
+                correctOpt: "F₁₆",
+                wrongOpts: ["E₁₆", "15₁₆", "10₁₆"], 
+                work: "15 ÷ 16 = 0 baki 15\n15 dalam Asas 16 diwakili oleh digit 'F'\nJawapan = F₁₆" 
+            },
+            { 
+                q: "Tukarkan 16₁₀ kepada Asas 16", 
+                correctOpt: "10₁₆",
+                wrongOpts: ["11₁₆", "100₁₆", "A0₁₆"], 
+                work: "16 ÷ 16 = 1 baki 0\n1 ÷ 16 = 0 baki 1\nBaca baki dari bawah ke atas ➔ 10₁₆" 
+            },
+            { 
+                q: "Tukarkan 26₁₀ kepada Asas 16", 
+                correctOpt: "1A₁₆",
+                wrongOpts: ["1B₁₆", "2A₁₆", "16₁₆"], 
+                work: "26 ÷ 16 = 1 baki 10 (A)\n1 ÷ 16 = 0 baki 1\nBaca baki dari bawah ke atas ➔ 1A₁₆" 
+            },
+            { 
+                q: "Tukarkan 31₁₀ kepada Asas 16", 
+                correctOpt: "1F₁₆",
+                wrongOpts: ["1E₁₆", "2F₁₆", "15₁₆"], 
+                work: "31 ÷ 16 = 1 baki 15 (F)\n1 ÷ 16 = 0 baki 1\nBaca baki dari bawah ke atas ➔ 1F₁₆" 
+            },
+            { 
+                q: "Tukarkan 42₁₀ kepada Asas 16", 
+                correctOpt: "2A₁₆",
+                wrongOpts: ["2B₁₆", "3A₁₆", "2C₁₆"], 
+                work: "42 ÷ 16 = 2 baki 10 (A)\n2 ÷ 16 = 0 baki 2\nBaca baki dari bawah ke atas ➔ 2A₁₆" 
+            },
+            { 
+                q: "Tukarkan 60₁₀ kepada Asas 16", 
+                correctOpt: "3C₁₆",
+                wrongOpts: ["3D₁₆", "4C₁₆", "3B₁₆"], 
+                work: "60 ÷ 16 = 3 baki 12 (C)\n3 ÷ 16 = 0 baki 3\nBaca baki dari bawah ke atas ➔ 3C₁₆" 
+            },
+            { 
+                q: "Tukarkan 77₁₀ kepada Asas 16", 
+                correctOpt: "4D₁₆",
+                wrongOpts: ["4E₁₆", "5D₁₆", "4C₁₆"], 
+                work: "77 ÷ 16 = 4 baki 13 (D)\n4 ÷ 16 = 0 baki 4\nBaca baki dari bawah ke atas ➔ 4D₁₆" 
+            },
+            { 
+                q: "Tukarkan 100₁₀ kepada Asas 16", 
+                correctOpt: "64₁₆",
+                wrongOpts: ["6B₁₆", "72₁₆", "5C₁₆"], 
+                work: "100 ÷ 16 = 6 baki 4\n6 ÷ 16 = 0 baki 6\nBaca baki dari bawah ke atas ➔ 64₁₆" 
+            },
+            { 
+                q: "Tukarkan 150₁₀ kepada Asas 16", 
+                correctOpt: "96₁₆",
+                wrongOpts: ["96A₁₆", "96B₁₆", "96C₁₆"], 
+                work: "150 ÷ 16 = 9 baki 6\n9 ÷ 16 = 0 baki 9\nBaca baki dari bawah ke atas ➔ 96₁₆" 
+            },
+            { 
+                q: "Tukarkan 175₁₀ kepada Asas 16", 
+                correctOpt: "AF₁₆",
+                wrongOpts: ["AF1₁₆", "AF2₁₆", "BF₁₆"], 
+                work: "175 ÷ 16 = 10 (A) baki 15 (F)\n10 ÷ 16 = 0 baki 10 (A)\nBaca baki dari bawah ke atas ➔ AF₁₆" 
+            },
+            { 
+                q: "Tukarkan 200₁₀ kepada Asas 16", 
+                correctOpt: "C8₁₆",
+                wrongOpts: ["C7₁₆", "D8₁₆", "B8₁₆"], 
+                work: "200 ÷ 16 = 12 (C) baki 8\n12 ÷ 16 = 0 baki 12 (C)\nBaca baki dari bawah ke atas ➔ C8₁₆" 
+            },
+            { 
+                q: "Tukarkan 222₁₀ kepada Asas 16", 
+                correctOpt: "DE₁₆",
+                wrongOpts: ["DC₁₆", "EE₁₆", "DF₁₆"], 
+                work: "222 ÷ 16 = 13 (D) baki 14 (E)\n13 ÷ 16 = 0 baki 13 (D)\nBaca baki dari bawah ke atas ➔ DE₁₆" 
+            },
+            { 
+                q: "Tukarkan 255₁₀ kepada Asas 16", 
+                correctOpt: "FF₁₆",
+                wrongOpts: ["FE₁₆", "EF₁₆", "100₁₆"], 
+                work: "255 ÷ 16 = 15 (F) baki 15 (F)\n15 ÷ 16 = 0 baki 15 (F)\nBaca baki dari bawah ke atas ➔ FF₁₆" 
+            },
+            { 
+                q: "Tukarkan 256₁₀ kepada Asas 16", 
+                correctOpt: "100₁₆",
+                wrongOpts: ["FF₁₆", "101₁₆", "200₁₆"], 
+                work: "256 ÷ 16 = 16 baki 0\n16 ÷ 16 = 1 baki 0\n1 ÷ 16 = 0 baki 1\nBaca baki dari bawah ke atas ➔ 100₁₆" 
+            }
+        ];
+
+        let quizData = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let studentName = "";
+        let studentClass = "";
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playClapSound() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    let osc = audioCtx.createOscillator();
+                    let gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(300 + Math.random() * 400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.1);
+                }, i * 50);
+            }
+        }
+
+        function playOhNoSound() {
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.5);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
+        }
+
+        function startQuiz() {
+            studentName = document.getElementById("studentName").value.trim();
+            studentClass = document.getElementById("studentClass").value.trim();
+
+            if (studentName === "" || studentClass === "") {
+                alert("Sila masukkan Nama dan Kelas anda terlebih dahulu!");
+                return;
+            }
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            quizData = shuffle([...rawQuizData]).map(item => {
+                let options = shuffle([item.correctOpt, ...item.wrongOpts]);
+                let correct = options.indexOf(item.correctOpt);
+                return {
+                    q: item.q,
+                    options: options,
+                    correct: correct,
+                    work: item.work
+                };
+            });
+
+            document.getElementById("page1").classList.add("hidden");
+            document.getElementById("page2").classList.remove("hidden");
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            document.getElementById("working-area").classList.add("hidden");
+            document.getElementById("options-container").classList.remove("hidden");
+
+            let q = quizData[currentQuestion];
+            document.getElementById("q-count").innerText = `Soalan ${currentQuestion + 1}/15`;
+            document.getElementById("score-count").innerText = `Markah: ${score}`;
+            document.getElementById("question").innerText = q.q;
+
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`btn${i}`).innerText = q.options[i];
+            }
+        }
+
+        function checkAnswer(selectedIndex) {
+            let q = quizData[currentQuestion];
+            let correctIndex = q.correct;
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                playClapSound();
+                nextQuestion();
+            } else {
+                playOhNoSound();
+                document.getElementById("options-container").classList.add("hidden");
+                document.getElementById("working-text").innerText = q.work;
+                document.getElementById("working-area").classList.remove("hidden");
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById("page2").classList.add("hidden");
+            document.getElementById("page3").classList.remove("hidden");
+
+            let percentage = Math.round((score / 15) * 100);
+            document.getElementById("result-message").innerText = `Syabas, ${studentName} (${studentClass})! Anda telah melengkapkan kuiz penukaran Asas 10 ke Asas 16.`;
+            document.getElementById("final-score").innerText = `Markah: ${score} / 15 (${percentage}%)`;
+
+            sendResultToGoogleSheet(percentage);
+        }
+
+        function sendResultToGoogleSheet(percentage) {
+            document.getElementById("loading").classList.remove("hidden");
+
+            let currentDate = new Date().toLocaleString('ms-MY');
+
+            const params = new URLSearchParams();
+            params.append("tarikh", currentDate);
+            params.append("nama", studentName);
+            params.append("kelas", studentClass);
+            params.append("markah", `${score}/15`);
+            params.append("peratus", `${percentage}%`);
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params.toString()
+            })
+            .then(() => {
+                document.getElementById("loading").classList.add("hidden");
+                document.getElementById("status-send").style.color = "#2E7D32";
+                document.getElementById("status-send").innerText = "✅ Markah berjaya direkodkan secara automatik dalam Google Sheet Guru!";
+            })
+            .catch(err => {
+                document.getElementById("loading").classList.add("hidden");
+                document.getElementById("status-send").style.color = "#C62828";
+                document.getElementById("status-send").innerText = "⚠️ Rekod tidak dapat dihantar. Sila semak sambungan internet anda.";
+                console.error(err);
+            });
+        }
+    </script>
+</body>
+</html>
